@@ -31,7 +31,25 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
-  Determine the hostname to use for PostgreSQL/mySQL/Redis.
+Common labels
+*/}}
+{{- define "pact-broker.labels" -}}
+helm.sh/chart: {{ include "pact-broker.chart" . }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}
+{{ include "pact-broker.selectorLabels" . }}
+{{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "pact-broker.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
+
+{{/*
+Determine the hostname to use for PostgreSQL/mySQL/Redis.
 */}}
 {{- define "postgresql.hostname" -}}
 {{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}

@@ -5,23 +5,18 @@ metadata:
   name: {{ $fullName }}-broker
   labels:
     pact.io/component: broker
-    app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "pact-broker.chart" . }}
+    {{- include "pact-broker.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
       pact.io/component: broker
-      app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "pact-broker.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         pact.io/component: broker
-        app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- include "pact-broker.selectorLabels" . | nindent 8 }}
     spec:
       # serviceAccountName: {{ $fullName }}
       # imagePullSecrets:
