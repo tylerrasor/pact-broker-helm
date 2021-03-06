@@ -1,0 +1,11 @@
+host: pact-broker.example
+
+pact_broker:
+  image: pactfoundation/pact-broker
+  tag: 2.79.0.0
+  livenessProbe:
+    failureThreshold: 200
+    initialDelaySeconds: 500
+    periodSeconds: 500
+    successThreshold: 0
+    timeoutSeconds: 500

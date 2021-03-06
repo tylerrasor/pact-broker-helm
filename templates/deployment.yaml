@@ -1,0 +1,58 @@
+{{- $fullName := include "pact-broker.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}-pact-broker
+  labels:
+    pact.io/component: broker
+    app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "pact-broker.chart" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pact.io/component: broker
+      app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        pact.io/component: broker
+        app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      # serviceAccountName: {{ $fullName }}
+      # imagePullSecrets:
+      # - name: {{ .Values.imagePullSecrets }}
+      containers:
+      - name: pact-broker
+        image: '{{ .Values.pact_broker.image}}:{{ .Values.pact_broker.tag }}'
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 9292
+        livenessProbe:
+          httpGet:
+            path: /login
+            port: http
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.host }}
+          initialDelaySeconds: 500
+          periodSeconds: 500
+          failureThreshold: 6
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: http
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.host }}
+          failureThreshold: {{ .Values.pact_broker.livenessProbe.failureThreshold }}
+          initialDelaySeconds: {{ .Values.pact_broker.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.pact_broker.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.pact_broker.livenessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.pact_broker.livenessProbe.timeoutSeconds }}
