@@ -29,3 +29,10 @@ Create chart name and version as used by the chart label.
 {{- define "pact-broker.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+  Determine the hostname to use for PostgreSQL/mySQL/Redis.
+*/}}
+{{- define "postgresql.hostname" -}}
+{{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

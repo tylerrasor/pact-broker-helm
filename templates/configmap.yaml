@@ -1,0 +1,14 @@
+{{- $fullName := include "pact-broker.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "pact-broker.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "pact-broker.chart" . }}
+data:
+  PACT_BROKER_DATABASE_USERNAME: {{ .Values.postgresql.postgresqlUsername }}
+  PACT_BROKER_DATABASE_HOST: {{ template "postgresql.hostname" . }}
+  PACT_BROKER_DATABASE_NAME: {{ .Values.postgresql.postgresqlDatabase }}

@@ -30,6 +30,15 @@ spec:
       - name: pact-broker
         image: '{{ .Values.pact_broker.image}}:{{ .Values.pact_broker.tag }}'
         imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: {{ $fullName }}
+        env:
+          - name: PACT_BROKER_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.postgresql.existingSecret }}
+                key: {{ .Values.postgresql.secretKey }}
         ports:
         - name: http
           protocol: TCP

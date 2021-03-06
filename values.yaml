@@ -1,4 +1,6 @@
 host: pact-broker.example
+# since this scret 
+createPostgresqlSecret: true
 
 pact_broker:
   image: pactfoundation/pact-broker
@@ -9,3 +11,28 @@ pact_broker:
     periodSeconds: 500
     successThreshold: 0
     timeoutSeconds: 500
+
+postgresql:
+  serviceAccount:
+    enabled: true 
+  postgresqlUsername: pact_broker
+  postgresqlPassword: ""
+  postgresqlDatabase: pact_broker
+  secretKey: postgresql-password
+  existingSecret: postgresql-password
+  persistence:
+    enabled: true
+  replication:
+    enabled: false
+  service:
+    port: 5432
+  securityContext:
+    enabled: true
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 1001
+  volumePermissions:
+    enabled: true
+    securityContext:
+      runAsUser: 1001
