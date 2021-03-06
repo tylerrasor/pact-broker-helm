@@ -36,3 +36,6 @@ postgresql:
     enabled: true
     securityContext:
       # runAsUser: 1001
+
+metrics:
+  enabled: true

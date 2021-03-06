@@ -49,8 +49,11 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
-Determine the hostname to use for PostgreSQL/mySQL/Redis.
+Determine the hostnames to use
 */}}
 {{- define "postgresql.hostname" -}}
 {{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- define "pact-broker.hostname" -}}
+{{- printf "http://%s-%s" .Release.Name "broker" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

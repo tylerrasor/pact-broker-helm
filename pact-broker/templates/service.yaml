@@ -11,5 +11,11 @@ spec:
     targetPort: http
     protocol: TCP
     name: http
+  {{- if .Values.metrics.enabled }}
+  - port: 9624
+    targetPort: metricshttp
+    protocol: TCP
+    name: metricshttp
+  {{- end }}
   selector:
     {{- include "pact-broker.selectorLabels" . | nindent 4 }}

@@ -60,3 +60,15 @@ spec:
           periodSeconds: {{ .Values.pact_broker.livenessProbe.periodSeconds }}
           successThreshold: {{ .Values.pact_broker.livenessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.pact_broker.livenessProbe.timeoutSeconds }}
+      {{- if .Values.metrics.enabled }}
+      - name: pact-broker-exporter
+        image: containersol/pactbroker_exporter:v0.1.1
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PB_EXPORTER_PACTBROKER_URI
+          value: {{ include "pact-broker.hostname" . }}
+        ports:
+        - name: metricshttp
+          protocol: TCP
+          containerPort: 9624
+      {{- end }}
