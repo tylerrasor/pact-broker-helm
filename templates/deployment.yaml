@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $fullName }}-pact-broker
+  name: {{ $fullName }}-broker
   labels:
     pact.io/component: broker
     app.kubernetes.io/name: {{ include "pact-broker.fullname" . }}
