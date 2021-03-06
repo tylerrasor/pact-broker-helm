@@ -45,8 +45,8 @@ spec:
             httpHeaders:
             - name: Host
               value: {{ .Values.host }}
-          initialDelaySeconds: 500
-          periodSeconds: 30
+          initialDelaySeconds: 10
+          periodSeconds: 10
           failureThreshold: 6
         readinessProbe:
           httpGet:
