@@ -45,17 +45,17 @@ spec:
           containerPort: 9292
         livenessProbe:
           httpGet:
-            path: /login
+            path: /
             port: http
             httpHeaders:
             - name: Host
               value: {{ .Values.host }}
           initialDelaySeconds: 500
-          periodSeconds: 500
+          periodSeconds: 30
           failureThreshold: 6
         readinessProbe:
           httpGet:
-            path: /login
+            path: /
             port: http
             httpHeaders:
             - name: Host

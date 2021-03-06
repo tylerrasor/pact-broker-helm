@@ -1,16 +1,16 @@
 host: pact-broker.example
-# since this scret 
+# since this secret should persist, only generate on first deploy
 createPostgresqlSecret: true
 
 pact_broker:
   image: pactfoundation/pact-broker
   tag: 2.79.0.0
   livenessProbe:
-    failureThreshold: 200
-    initialDelaySeconds: 500
-    periodSeconds: 500
-    successThreshold: 0
-    timeoutSeconds: 500
+    failureThreshold: 3
+    initialDelaySeconds: 90
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 30
 
 postgresql:
   serviceAccount:
@@ -31,8 +31,8 @@ postgresql:
     fsGroup: 1001
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    # runAsUser: 1001
   volumePermissions:
     enabled: true
     securityContext:
-      runAsUser: 1001
+      # runAsUser: 1001
