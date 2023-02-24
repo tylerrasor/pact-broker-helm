@@ -9,6 +9,6 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "pact-broker.chart" . }}
 data:
-  PACT_BROKER_DATABASE_USERNAME: {{ .Values.postgresql.postgresqlUsername }}
+  PACT_BROKER_DATABASE_USERNAME: {{ .Values.postgresql.auth.username }}
   PACT_BROKER_DATABASE_HOST: {{ template "postgresql.hostname" . }}
-  PACT_BROKER_DATABASE_NAME: {{ .Values.postgresql.postgresqlDatabase }}
+  PACT_BROKER_DATABASE_NAME: {{ .Values.postgresql.auth.database }}

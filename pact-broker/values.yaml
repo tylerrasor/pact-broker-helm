@@ -4,7 +4,7 @@ createPostgresqlSecret: false
 
 pact_broker:
   image: pactfoundation/pact-broker
-  tag: 2.79.0.0
+  tag: 2.106.0.1
   livenessProbe:
     failureThreshold: 3
     initialDelaySeconds: 10
@@ -14,12 +14,14 @@ pact_broker:
 
 postgresql:
   serviceAccount:
-    enabled: true 
-  postgresqlUsername: pact_broker
-  postgresqlPassword: ""
-  postgresqlDatabase: pact_broker
-  secretKey: postgresql-password
-  existingSecret: postgresql-password
+    enabled: true
+  auth:
+      username: pact_broker
+      password: ""
+      database: pact_broker
+      existingSecret: pact-broker-postgresql
+      secretKeys:
+        userPasswordKey: postgres-password
   persistence:
     enabled: true
   replication:
