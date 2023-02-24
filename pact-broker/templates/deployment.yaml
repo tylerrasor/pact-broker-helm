@@ -18,9 +18,6 @@ spec:
         pact.io/component: broker
         {{- include "pact-broker.selectorLabels" . | nindent 8 }}
     spec:
-      # serviceAccountName: {{ $fullName }}
-      # imagePullSecrets:
-      # - name: {{ .Values.imagePullSecrets }}
       containers:
       - name: pact-broker
         image: '{{ .Values.pact_broker.image}}:{{ .Values.pact_broker.tag }}'
@@ -32,8 +29,10 @@ spec:
           - name: PACT_BROKER_DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.postgresql.existingSecret }}
-                key: {{ .Values.postgresql.secretKey }}
+                name: {{ .Values.postgresql.auth.existingSecret }}
+                key: {{ .Values.postgresql.auth.secretKeys.userPasswordKey }}
+          - name: PACT_BROKER_PORT
+            value: "9292"
         ports:
         - name: http
           protocol: TCP
@@ -62,7 +61,7 @@ spec:
           timeoutSeconds: {{ .Values.pact_broker.livenessProbe.timeoutSeconds }}
       {{- if .Values.metrics.enabled }}
       - name: pact-broker-exporter
-        image: containersol/pactbroker_exporter:v0.1.1
+        image: containersol/pactbroker_exporter:v0.1.3
         imagePullPolicy: IfNotPresent
         env:
         - name: PB_EXPORTER_PACTBROKER_URI
