@@ -1,0 +1,17 @@
+name: Generate values schema json
+on:
+  - pull_request
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Generate values schema json
+      uses: tylerrasor/helm-values-schema-json-action@643c40ad7e9249eef32cf8c34a46f08e7232ac61
+      with:
+        input: pact-broker/values.yaml
+        output: pact-broker/values.schema.json
+        git-push: true
