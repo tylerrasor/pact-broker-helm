@@ -10,9 +10,9 @@ jobs:
         ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Generate values schema json
-      uses: tylerrasor/helm-values-schema-json-action@1c93888c2a9a8ce7b8f1be148c95d546bb785182
+      uses: tylerrasor/helm-values-schema-json-action@77c9f2d9403273e6c8d1be02bdf8f0c3cdcc98a7
       with:
         input: pact-broker/values.yaml
         output: pact-broker/values.schema.json
         git-push: true
-        additionalPropertiesAll: true
+        noAdditionalProperties: true
