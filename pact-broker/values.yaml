@@ -41,3 +41,4 @@ postgresql:
 
 metrics:
   enabled: true
+
