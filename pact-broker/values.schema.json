@@ -14,7 +14,8 @@
                 "enabled": {
                     "type": "boolean"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "pact_broker": {
             "type": "object",
@@ -40,12 +41,14 @@
                         "timeoutSeconds": {
                             "type": "integer"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "tag": {
                     "type": "string"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "postgresql": {
             "type": "object",
@@ -68,12 +71,14 @@
                                 "userPasswordKey": {
                                     "type": "string"
                                 }
-                            }
+                            },
+                            "additionalProperties": false
                         },
                         "username": {
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "containerSecurityContext": {
                     "type": "object",
@@ -81,7 +86,8 @@
                         "enabled": {
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "persistence": {
                     "type": "object",
@@ -89,7 +95,8 @@
                         "enabled": {
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "replication": {
                     "type": "object",
@@ -97,7 +104,8 @@
                         "enabled": {
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "securityContext": {
                     "type": "object",
@@ -108,7 +116,8 @@
                         "fsGroup": {
                             "type": "integer"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "service": {
                     "type": "object",
@@ -116,7 +125,8 @@
                         "port": {
                             "type": "integer"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "serviceAccount": {
                     "type": "object",
@@ -124,7 +134,8 @@
                         "enabled": {
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "volumePermissions": {
                     "type": "object",
@@ -135,10 +146,12 @@
                         "securityContext": {
                             "type": "null"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 }
-            }
+            },
+            "additionalProperties": false
         }
     },
-    "additionalProperties": true
+    "additionalProperties": false
 }
