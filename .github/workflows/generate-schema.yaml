@@ -15,3 +15,4 @@ jobs:
         input: pact-broker/values.yaml
         output: pact-broker/values.schema.json
         git-push: true
+        additionalPropertiesAll: true
