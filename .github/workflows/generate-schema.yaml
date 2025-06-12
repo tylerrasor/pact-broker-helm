@@ -16,3 +16,4 @@ jobs:
         output: pact-broker/values.schema.json
         git-push: true
         additionalPropertiesAll: true
+        additionalProperties: true
